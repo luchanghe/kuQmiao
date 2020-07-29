@@ -1,6 +1,6 @@
 @echo off
 
-::SET DevDir=C:\Users\Administrator\Desktop\kQair\dev\me.cqp.luchanghe.jx3Robot
+SET DevDir=C:\Users\Administrator\Desktop\kQair\dev\me.cqp.luchanghe.jx3Robot
 
 echo Setting proxy
 SET GOPROXY=https://goproxy.cn

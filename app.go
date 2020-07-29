@@ -24,6 +24,7 @@ func init() {
 
 func onGroupMsg(subType, msgID int32, fromGroup, fromQQ int64, fromAnonymous, msg string, font int32) int32 {
 	//剔除字符串首位空格
+
 	msg = tool.DeleteExtraSpace(msg)
 	msg = strings.Trim(msg, " ")
 	//拆解字符串为数组
@@ -58,7 +59,7 @@ func onGroupMsg(subType, msgID int32, fromGroup, fromQQ int64, fromAnonymous, ms
 		result = resource.SearchPetTravel(address)
 	case "阿喵":
 		switch strArr[1] {
-		case "口吐芬芳":
+		case "骂他":
 			result = resource.SearchFuck()
 		}
 	}
