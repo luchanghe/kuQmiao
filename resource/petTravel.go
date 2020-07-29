@@ -1,10 +1,10 @@
-package travel
+package resource
 
 import (
 	"fmt"
 )
 
-type Implements struct {
+type petTravelStruct struct {
 	Name      string //家具
 	Type      string //家具类型
 	Watch     string //观赏
@@ -14,7 +14,7 @@ type Implements struct {
 	Interest  string //趣味
 }
 
-var implements = map[string]Implements{
+var petTravel = map[string]petTravelStruct{
 	"万花": {
 		"日晷", "景观-雕像", "484", "1743", "500", "500", "---",
 	},
@@ -179,8 +179,8 @@ var implements = map[string]Implements{
 	},
 }
 
-func Result(address string) string {
-	data, empty := implements[address]
+func SearchPetTravel(address string) string {
+	data, empty := petTravel[address]
 	if empty != false {
 		return fmt.Sprintf("器物：%s \n"+
 			"地图：%s \n"+
