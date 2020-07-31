@@ -2,6 +2,8 @@ package tool
 
 import (
 	"bytes"
+	"fmt"
+	"github.com/Tnze/CoolQ-Golang-SDK/cqp"
 	"io"
 	"net/http"
 	"regexp"
@@ -56,3 +58,15 @@ func DeleteExtraSpace(s string) string {
 	}
 	return string(s2)
 }
+
+var developmentMode bool = true
+
+func SendGroupMessage(fromGroup int64, msg string) {
+	if developmentMode == true {
+		fmt.Println(msg)
+	} else {
+		cqp.SendGroupMsg(fromGroup, msg)
+	}
+}
+
+//写入文件

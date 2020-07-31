@@ -6,6 +6,7 @@ import (
 	"github.com/luchanghe/jx3Robot/resource"
 	"github.com/luchanghe/jx3Robot/tool"
 	"strings"
+	"time"
 )
 
 //go:generate cqcfg -c .
@@ -13,13 +14,29 @@ import (
 // cqp: 版本: 1.0.0:1
 // cqp: 作者: luchanghe
 // cqp: 简介: 剑网三QQ机器人
-func main() {}
+func main() { runTicker() }
 
 //onGroupMsg(1,2,60,60,"123","花价 梦江南 绣球花",4)
-
 func init() {
 	cqp.AppID = "me.cqp.luchanghe.jx3Robot" // TODO: 修改为这个插件的ID
 	cqp.GroupMsg = onGroupMsg
+}
+
+var tName int
+
+//运行定时器
+func runTicker() {
+	resource.LuckyLoop() //进行一次初始化
+	luckTicker := time.NewTicker(3 * time.Second)
+	defer luckTicker.Stop()
+	for {
+		select {
+		case <-luckTicker.C:
+			//监控奇遇
+			resource.LuckyLoop()
+
+		}
+	}
 }
 
 func onGroupMsg(subType, msgID int32, fromGroup, fromQQ int64, fromAnonymous, msg string, font int32) int32 {
@@ -64,19 +81,9 @@ func onGroupMsg(subType, msgID int32, fromGroup, fromQQ int64, fromAnonymous, ms
 		}
 	}
 	if result != "" {
-		sendGroupMessage(fromGroup, result)
+		tool.SendGroupMessage(fromGroup, result)
 	}
 	return 0
-}
-
-var developmentMode bool = false
-
-func sendGroupMessage(fromGroup int64, msg string) {
-	if developmentMode == true {
-		fmt.Println(msg)
-	} else {
-		cqp.SendGroupMsg(fromGroup, msg)
-	}
 }
 
 func test() {
@@ -85,5 +92,5 @@ func test() {
 	fmt.Println("宠物游历")
 	onGroupMsg(1, 2, 60, 60, "123", "宠物游历 扬州", 4)
 	fmt.Println("口吐芬芳")
-	onGroupMsg(1, 2, 60, 60, "123", "阿喵 口吐芬芳", 4)
+	onGroupMsg(1, 2, 60, 60, "123", "阿喵 骂他", 4)
 }
